@@ -1,6 +1,6 @@
-# estudo_mobx
+# Mobx Study
 
-A new Flutter project.
+Classic To Do List for MobX Study Purposes
 
 ## Getting Started
 
