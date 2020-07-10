@@ -5,8 +5,6 @@ import 'package:estudo_mobx/widgets/custom_icon_button.dart';
 import 'package:estudo_mobx/widgets/custom_text_field.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import 'list_screen.dart';
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -75,20 +73,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Text('Login'),
+                            child: loginStore.loading
+                                ? CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation(
+                                      Colors.white,
+                                    ),
+                                  )
+                                : Text('Login'),
                             color: Theme.of(context).primaryColor,
                             disabledColor:
                                 Theme.of(context).primaryColor.withAlpha(100),
                             textColor: Colors.white,
                             onPressed: loginStore.isValidForm
-                                ? () {
-                                    Navigator.of(context).pushReplacement(
+                                ? loginStore.login
+                                :
+                                /*Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                        builder: (context) => ListScreen(),
-                                      ),
-                                    );
-                                  }
-                                : null,
+                                          builder: (context) => ListScreen()),
+                                    );*/
+
+                                null,
                           ),
                         );
                       },

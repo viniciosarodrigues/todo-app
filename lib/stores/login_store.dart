@@ -39,6 +39,8 @@ abstract class _LoginStore with Store {
   Future<void> login() async {
     loading = true;
 
+    await Future.delayed(Duration(seconds: 2));
+
     loading = false;
   }
 
