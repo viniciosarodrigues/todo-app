@@ -130,10 +130,6 @@ class _LoginFormState extends State<LoginForm> {
                         Theme.of(context).primaryColor.withAlpha(100),
                     textColor: Colors.white,
                     onPressed: loginStore.loginPressed,
-                    /*Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) => ListScreen()),
-                                    );*/
                   ),
                 );
               },

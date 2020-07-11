@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:estudo_mobx/widgets/custom_icon_button.dart';
 import 'package:estudo_mobx/widgets/custom_text_field.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 
 import 'login_screen.dart';
 
@@ -13,8 +12,8 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-  ListStore listStore = ListStore();
-
+  final ListStore listStore = ListStore();
+  final TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -61,12 +60,16 @@ class _ListScreenState extends State<ListScreen> {
                         Observer(builder: (_) {
                           return CustomTextField(
                             hint: 'Tarefa',
+                            controller: textController,
                             onChanged: listStore.setNewToDoTitle,
                             suffix: listStore.isValidForm
                                 ? CustomIconButton(
                                     radius: 32,
                                     iconData: Icons.add,
-                                    onTap: listStore.addItem,
+                                    onTap: () {
+                                      listStore.addItem();
+                                      textController.clear();
+                                    },
                                   )
                                 : null,
                           );
@@ -74,24 +77,41 @@ class _ListScreenState extends State<ListScreen> {
                         const SizedBox(
                           height: 8,
                         ),
-                        Expanded(child: Observer(
-                          builder: (_) {
-                            return ListView.separated(
-                              itemCount: listStore.listItems.length,
-                              itemBuilder: (_, index) {
-                                return ListTile(
-                                  title: Text(
-                                    listStore.listItems[index],
-                                  ),
-                                  onTap: () {},
-                                );
-                              },
-                              separatorBuilder: (_, __) {
-                                return Divider();
-                              },
-                            );
-                          },
-                        )),
+                        Expanded(
+                          child: Observer(
+                            builder: (_) {
+                              return ListView.separated(
+                                itemCount: listStore.listItems.length,
+                                itemBuilder: (_, index) {
+                                  final todo = listStore.listItems[index];
+                                  return Observer(
+                                    builder: (_) {
+                                      return ListTile(
+                                        title: Text(
+                                          todo.title,
+                                          style: TextStyle(
+                                            decoration: todo.done
+                                                ? TextDecoration.lineThrough
+                                                : null,
+                                            color: todo.done
+                                                ? Colors.grey
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          todo.toggleDone();
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                                separatorBuilder: (_, __) {
+                                  return Divider();
+                                },
+                              );
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   ),
