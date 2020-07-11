@@ -57,7 +57,7 @@ class _LoginFormState extends State<LoginForm> {
                   child: TextFormField(
                     focusNode: _userFocus,
                     textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.userAddress,
+                    keyboardType: TextInputType.text,
                     onChanged: loginStore.setuser,
                     enabled: !loginStore.loading,
                     onFieldSubmitted: (term) {
@@ -66,7 +66,7 @@ class _LoginFormState extends State<LoginForm> {
                     decoration: InputDecoration(
                       enabled: !loginStore.loading,
                       icon: Icon(Icons.account_circle),
-                      hintText: 'E-mail',
+                      hintText: 'Usuário',
                     ),
                   ),
                 );

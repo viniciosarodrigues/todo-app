@@ -1,0 +1,67 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'list_store.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+
+mixin _$ListStore on _ListStoreBase, Store {
+  Computed<bool> _$isValidFormComputed;
+
+  @override
+  bool get isValidForm =>
+      (_$isValidFormComputed ??= Computed<bool>(() => super.isValidForm,
+              name: '_ListStoreBase.isValidForm'))
+          .value;
+
+  final _$newTodoTitleAtom = Atom(name: '_ListStoreBase.newTodoTitle');
+
+  @override
+  String get newTodoTitle {
+    _$newTodoTitleAtom.reportRead();
+    return super.newTodoTitle;
+  }
+
+  @override
+  set newTodoTitle(String value) {
+    _$newTodoTitleAtom.reportWrite(value, super.newTodoTitle, () {
+      super.newTodoTitle = value;
+    });
+  }
+
+  final _$_ListStoreBaseActionController =
+      ActionController(name: '_ListStoreBase');
+
+  @override
+  void setNewToDoTitle(String value) {
+    final _$actionInfo = _$_ListStoreBaseActionController.startAction(
+        name: '_ListStoreBase.setNewToDoTitle');
+    try {
+      return super.setNewToDoTitle(value);
+    } finally {
+      _$_ListStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void addItem() {
+    final _$actionInfo = _$_ListStoreBaseActionController.startAction(
+        name: '_ListStoreBase.addItem');
+    try {
+      return super.addItem();
+    } finally {
+      _$_ListStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String toString() {
+    return '''
+newTodoTitle: ${newTodoTitle},
+isValidForm: ${isValidForm}
+    ''';
+  }
+}
