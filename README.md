@@ -1,16 +1,21 @@
-# Mobx Study
+# ToDo com MobX
 
-Classic To Do List for MobX Study Purposes
+Clássica lista de To Do criadas à partir de estudos com o MobX
 
-## Getting Started
+## Telas
 
-This project is a starting point for a Flutter application.
+<p align="center">
+  <img alt="Tela 1" src="./assets/readme/Tela 7.jpeg" height="400px" width="200px" />
+  <img alt="Tela 2" src="./assets/readme/Tela 3.jpeg" height="400px" width="200px" />
+  <img alt="Tela 3" src="./assets/readme/Tela 4.jpeg" height="400px" width="200px" />
+  <img alt="Tela 4" src="./assets/readme/Tela 2.jpeg" height="400px" width="200px" />
+</p>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Bibliotecas utilizadas
+ 
+-  cupertino_icons: ^0.1.3
+-  mobx: ^1.2.1+1
+-  flutter_mobx: ^1.1.0+1
+-  mobx_codegen: ^1.1.0+1
+-  build_runner: ^1.10.0
+-  provider: ^4.3.1
