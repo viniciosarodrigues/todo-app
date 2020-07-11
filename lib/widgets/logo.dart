@@ -14,19 +14,6 @@ class Logo extends StatelessWidget {
         ),
         SizedBox(
           height: 20,
-        ),
-        Text(
-          "Lista de Atividades",
-          style: TextStyle(
-            color: Colors.blueAccent,
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Big Shouders Display",
-          ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(
-          height: 20,
         )
       ],
     );

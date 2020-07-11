@@ -11,6 +11,10 @@ abstract class _LoginStore with Store {
     });
   }
 
+  //
+  //  Observable
+  //
+
   @observable
   String email = "";
 
@@ -23,6 +27,10 @@ abstract class _LoginStore with Store {
   @observable
   bool loading = false;
 
+  //
+  //  Action
+  //
+
   @action
   void setEmail(String value) => email = value;
 
@@ -31,9 +39,6 @@ abstract class _LoginStore with Store {
 
   @action
   void togglePasswordVisible() => passwordVisible = !passwordVisible;
-
-  @computed
-  bool get isValidPassword => password.length >= 6;
 
   @action
   Future<void> login() async {
@@ -44,10 +49,18 @@ abstract class _LoginStore with Store {
     loading = false;
   }
 
+  //
+  //  Computed
+  //
+
   @computed
-  bool get isValidEmail => RegExp(
-          r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
-      .hasMatch(email);
+  Function get loginPressed => isValidForm && !loading ? login : null;
+
+  @computed
+  bool get isValidPassword => password.length >= 6;
+
+  @computed
+  bool get isValidEmail => email.length > 1;
 
   @computed
   bool get isValidForm => isValidEmail && isValidPassword;
