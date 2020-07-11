@@ -5,11 +5,7 @@ part 'login_store.g.dart';
 class LoginStore = _LoginStore with _$LoginStore;
 
 abstract class _LoginStore with Store {
-  _LoginStore() {
-    autorun((_) {
-      print("Fomulário válido? :: " + isValidForm.toString());
-    });
-  }
+  _LoginStore() {}
 
   //
   //  Observable
@@ -51,6 +47,13 @@ abstract class _LoginStore with Store {
 
     loggedIn = true;
     loading = false;
+  }
+
+  @action
+  Future<void> logout() async {
+    loggedIn = false;
+    user = "";
+    password = "";
   }
 
   //

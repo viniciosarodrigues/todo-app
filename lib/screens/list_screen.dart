@@ -1,10 +1,11 @@
+import 'package:estudo_mobx/screens/login_screen.dart';
 import 'package:estudo_mobx/stores/list_store.dart';
+import 'package:estudo_mobx/stores/login_store.dart';
 import 'package:flutter/material.dart';
 import 'package:estudo_mobx/widgets/custom_icon_button.dart';
 import 'package:estudo_mobx/widgets/custom_text_field.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
-import 'login_screen.dart';
+import 'package:provider/provider.dart';
 
 class ListScreen extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class ListScreen extends StatefulWidget {
 class _ListScreenState extends State<ListScreen> {
   final ListStore listStore = ListStore();
   final TextEditingController textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,13 +39,14 @@ class _ListScreenState extends State<ListScreen> {
                           fontSize: 32),
                     ),
                     IconButton(
-                      icon: Icon(Icons.exit_to_app),
-                      color: Colors.white,
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => LoginScreen()));
-                      },
-                    ),
+                        icon: Icon(Icons.exit_to_app),
+                        color: Colors.white,
+                        onPressed: () {
+                          Provider.of<LoginStore>(context, listen: false)
+                              .logout();
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (_) => LoginScreen()));
+                        }),
                   ],
                 ),
               ),

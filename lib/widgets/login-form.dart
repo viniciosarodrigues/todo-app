@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:estudo_mobx/screens/list_screen.dart';
 import 'package:estudo_mobx/stores/login_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:provider/provider.dart';
 
 import 'custom_icon_button.dart';
 
@@ -12,7 +15,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  LoginStore loginStore = LoginStore();
+  LoginStore loginStore;
 
   final FocusNode _userFocus = FocusNode();
 
@@ -31,6 +34,8 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
+    loginStore = Provider.of<LoginStore>(context);
 
     disposer = reaction((_) => loginStore.loggedIn, (loggedIn) {
       if (loggedIn) {
@@ -107,16 +112,21 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
             const SizedBox(
-              height: 16,
+              height: 40,
             ),
             Observer(
               builder: (_) {
                 return SizedBox(
-                  height: 44,
+                  height: 40,
                   child: RaisedButton(
                     focusNode: _loginButtonFocus,
+                    elevation: 0.0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
+                      side: BorderSide(
+                          color: loginStore.loading || !loginStore.isValidForm
+                              ? Colors.grey
+                              : Theme.of(context).primaryColor),
                     ),
                     child: loginStore.loading
                         ? CircularProgressIndicator(
@@ -124,16 +134,39 @@ class _LoginFormState extends State<LoginForm> {
                               Colors.white,
                             ),
                           )
-                        : Text('Login'),
-                    color: Theme.of(context).primaryColor,
-                    disabledColor:
-                        Theme.of(context).primaryColor.withAlpha(100),
+                        : Text(
+                            'Login',
+                            style: TextStyle(
+                              color:
+                                  loginStore.loading || !loginStore.isValidForm
+                                      ? Colors.white
+                                      : Theme.of(context).primaryColor,
+                            ),
+                          ),
+                    color: Colors.white,
+                    disabledColor: Colors.grey.withAlpha(80),
                     textColor: Colors.white,
                     onPressed: loginStore.loginPressed,
                   ),
                 );
               },
-            )
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            GestureDetector(
+              onTap: () {
+                loginStore.login();
+              },
+              child: new Text(
+                "Configurações do Aplicativo",
+                style: TextStyle(
+                  color: Colors.blueAccent,
+                  fontSize: 11,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
           ],
         ),
       ),
