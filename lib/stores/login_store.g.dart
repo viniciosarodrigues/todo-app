@@ -9,6 +9,13 @@ part of 'login_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$LoginStore on _LoginStore, Store {
+  Computed<Function> _$loginPressedComputed;
+
+  @override
+  Function get loginPressed =>
+      (_$loginPressedComputed ??= Computed<Function>(() => super.loginPressed,
+              name: '_LoginStore.loginPressed'))
+          .value;
   Computed<bool> _$isValidPasswordComputed;
 
   @override
@@ -16,12 +23,12 @@ mixin _$LoginStore on _LoginStore, Store {
       (_$isValidPasswordComputed ??= Computed<bool>(() => super.isValidPassword,
               name: '_LoginStore.isValidPassword'))
           .value;
-  Computed<bool> _$isValidEmailComputed;
+  Computed<bool> _$isValiduserComputed;
 
   @override
-  bool get isValidEmail =>
-      (_$isValidEmailComputed ??= Computed<bool>(() => super.isValidEmail,
-              name: '_LoginStore.isValidEmail'))
+  bool get isValiduser =>
+      (_$isValiduserComputed ??= Computed<bool>(() => super.isValiduser,
+              name: '_LoginStore.isValiduser'))
           .value;
   Computed<bool> _$isValidFormComputed;
 
@@ -31,18 +38,18 @@ mixin _$LoginStore on _LoginStore, Store {
               name: '_LoginStore.isValidForm'))
           .value;
 
-  final _$emailAtom = Atom(name: '_LoginStore.email');
+  final _$userAtom = Atom(name: '_LoginStore.user');
 
   @override
-  String get email {
-    _$emailAtom.reportRead();
-    return super.email;
+  String get user {
+    _$userAtom.reportRead();
+    return super.user;
   }
 
   @override
-  set email(String value) {
-    _$emailAtom.reportWrite(value, super.email, () {
-      super.email = value;
+  set user(String value) {
+    _$userAtom.reportWrite(value, super.user, () {
+      super.user = value;
     });
   }
 
@@ -91,6 +98,21 @@ mixin _$LoginStore on _LoginStore, Store {
     });
   }
 
+  final _$loggedInAtom = Atom(name: '_LoginStore.loggedIn');
+
+  @override
+  bool get loggedIn {
+    _$loggedInAtom.reportRead();
+    return super.loggedIn;
+  }
+
+  @override
+  set loggedIn(bool value) {
+    _$loggedInAtom.reportWrite(value, super.loggedIn, () {
+      super.loggedIn = value;
+    });
+  }
+
   final _$loginAsyncAction = AsyncAction('_LoginStore.login');
 
   @override
@@ -101,11 +123,11 @@ mixin _$LoginStore on _LoginStore, Store {
   final _$_LoginStoreActionController = ActionController(name: '_LoginStore');
 
   @override
-  void setEmail(String value) {
+  void setuser(String value) {
     final _$actionInfo =
-        _$_LoginStoreActionController.startAction(name: '_LoginStore.setEmail');
+        _$_LoginStoreActionController.startAction(name: '_LoginStore.setuser');
     try {
-      return super.setEmail(value);
+      return super.setuser(value);
     } finally {
       _$_LoginStoreActionController.endAction(_$actionInfo);
     }
@@ -136,12 +158,14 @@ mixin _$LoginStore on _LoginStore, Store {
   @override
   String toString() {
     return '''
-email: ${email},
+user: ${user},
 password: ${password},
 passwordVisible: ${passwordVisible},
 loading: ${loading},
+loggedIn: ${loggedIn},
+loginPressed: ${loginPressed},
 isValidPassword: ${isValidPassword},
-isValidEmail: ${isValidEmail},
+isValiduser: ${isValiduser},
 isValidForm: ${isValidForm}
     ''';
   }

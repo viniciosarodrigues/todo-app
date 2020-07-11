@@ -1,6 +1,8 @@
+import 'package:estudo_mobx/screens/list_screen.dart';
 import 'package:estudo_mobx/stores/login_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 import 'custom_icon_button.dart';
 
@@ -12,7 +14,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   LoginStore loginStore = LoginStore();
 
-  final FocusNode _emailFocus = FocusNode();
+  final FocusNode _userFocus = FocusNode();
 
   final FocusNode _passwordFocus = FocusNode();
 
@@ -22,6 +24,21 @@ class _LoginFormState extends State<LoginForm> {
       BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+  ReactionDisposer disposer;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    disposer = reaction((_) => loginStore.loggedIn, (loggedIn) {
+      if (loggedIn) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (_) => ListScreen(),
+        ));
+      }
+    });
   }
 
   @override
@@ -38,13 +55,13 @@ class _LoginFormState extends State<LoginForm> {
                     right: 15,
                   ),
                   child: TextFormField(
-                    focusNode: _emailFocus,
+                    focusNode: _userFocus,
                     textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: loginStore.setEmail,
+                    keyboardType: TextInputType.userAddress,
+                    onChanged: loginStore.setuser,
                     enabled: !loginStore.loading,
                     onFieldSubmitted: (term) {
-                      _fieldFocusChange(context, _emailFocus, _passwordFocus);
+                      _fieldFocusChange(context, _userFocus, _passwordFocus);
                     },
                     decoration: InputDecoration(
                       enabled: !loginStore.loading,
@@ -67,7 +84,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                   child: TextFormField(
                     onChanged: loginStore.setPassword,
-                    enabled: loginStore.isValidEmail,
+                    enabled: loginStore.isValiduser,
                     obscureText: !loginStore.passwordVisible,
                     focusNode: _passwordFocus,
                     onFieldSubmitted: (term) {
@@ -125,5 +142,11 @@ class _LoginFormState extends State<LoginForm> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    dispose();
+    super.dispose();
   }
 }

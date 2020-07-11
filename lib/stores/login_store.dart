@@ -16,7 +16,7 @@ abstract class _LoginStore with Store {
   //
 
   @observable
-  String email = "";
+  String user = "";
 
   @observable
   String password = "";
@@ -27,12 +27,15 @@ abstract class _LoginStore with Store {
   @observable
   bool loading = false;
 
+  @observable
+  bool loggedIn = false;
+
   //
   //  Action
   //
 
   @action
-  void setEmail(String value) => email = value;
+  void setuser(String value) => user = value;
 
   @action
   void setPassword(String value) => password = value;
@@ -46,6 +49,7 @@ abstract class _LoginStore with Store {
 
     await Future.delayed(Duration(seconds: 2));
 
+    loggedIn = true;
     loading = false;
   }
 
@@ -60,8 +64,8 @@ abstract class _LoginStore with Store {
   bool get isValidPassword => password.length >= 6;
 
   @computed
-  bool get isValidEmail => email.length > 1;
+  bool get isValiduser => user.length > 1;
 
   @computed
-  bool get isValidForm => isValidEmail && isValidPassword;
+  bool get isValidForm => isValiduser && isValidPassword;
 }
